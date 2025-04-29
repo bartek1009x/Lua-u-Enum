@@ -1,9 +1,10 @@
 # Lua(u) Enum
-A simple Enum class implementation for both Lua and Luau, inspired by Java's Enums.
+A simple Enum class implementation for both Lua and Luau, inspired by Java's Enums and the way @herb-chan implemented enums in js.
 
-(The Lua version works with Lua 5.1+)
+Both implementations are almost the same, with the only differences being that the Luau implementation is fully typed and replaces some Lua functionality with Luau specific versions (for example the Luau version uses table.freeze instead of setting the __newindex of the enum to ensure immutability).
 
-Both implementations are almost the same, with the only differences being that the Luau implementation is fully typed and it prevents enum modification with table.freeze() instead of setting the __newindex of the enum.
+> [!NOTE]
+> The Lua version should work with all 5.1+ Lua versions
 
 # Example usage
 Using this module is the same for both Lua and Luau versions.

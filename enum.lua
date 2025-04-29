@@ -11,6 +11,8 @@ local reservedNames = {
 }
 
 function enum.new(values)
+	assert(values and #values > 0, "Provide the string enum values")
+
     local self = {}
 
     for i, v in ipairs(values) do
@@ -62,31 +64,42 @@ function enum.values(self)
 end
 
 function enum.compare(self, val1, val2)
+	assert(type(val1) == "number" and type(val2) == "number", "You need to provide two enum values to compare")
+
     return val1 - val2
 end
 
 function enum.getByOrdinal(self, ordinal)
+	assert(type(ordinal) == "number", "You need to provide the ordinal to get the enum value from")
+
     for i, v in pairs(self) do
         if type(i) == "string" and v == ordinal then
             return i
         end
     end
+    return nil
 end
 
 function enum.next(self, current)
+	assert(type(current) == "number", "You need to provide the enum value to get the next one from")
+
     for i, v in pairs(self) do
         if type(i) == "string" and v == current + 1 then
             return v
         end
     end
+    return nil
 end
 
 function enum.previous(self, current)
+	assert(type(current) == "number", "You need to provide the enum value to get the previous one from")
+    
     for i, v in pairs(self) do
         if type(i) == "string" and v == current - 1 then
             return v
         end
     end
+    return nil
 end
 
 return enum

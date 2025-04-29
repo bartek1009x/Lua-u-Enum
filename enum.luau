@@ -24,6 +24,8 @@ local reservedNames = {
 } :: {[string] : boolean}
 
 function enum.new(values: {string}) : EnumType
+	assert(values and #values > 0, "Provide the string enum values")
+
 	local self = {}
 
 	for i, v in ipairs(values) do
@@ -66,10 +68,14 @@ function enum.values(self: EnumType) : {string}
 end
 
 function enum.compare(self: EnumType, val1: number, val2: number) : number
+	assert(typeof(val1) == "number" and typeof(val2) == "number", "You need to provide two enum values to compare")
+
 	return val1 - val2
 end
 
 function enum.getByOrdinal(self: EnumType, ordinal: number) : string?
+	assert(typeof(ordinal) == "number", "You need to provide the ordinal to get the enum value from")
+
 	for i, v in pairs(self) do
 		if typeof(i) == "string" and v == ordinal then
 			return i
@@ -79,6 +85,8 @@ function enum.getByOrdinal(self: EnumType, ordinal: number) : string?
 end
 
 function enum.next(self: EnumType, current: number) : number?
+	assert(typeof(current) == "number", "You need to provide the enum value to get the next one from")
+
 	for i, v in pairs(self) do
 		if typeof(i) == "string" and v == current + 1 then
 			return v :: number
@@ -88,6 +96,8 @@ function enum.next(self: EnumType, current: number) : number?
 end
 
 function enum.previous(self: EnumType, current: number) : number?
+	assert(typeof(current) == "number", "You need to provide the enum value to get the previous one from")
+
 	for i, v in pairs(self) do
 		if typeof(i) == "string" and v == current - 1 then
 			return v :: number
