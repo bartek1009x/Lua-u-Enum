@@ -1,5 +1,5 @@
 # Lua(u) Enum
-A simple Enum class implementation for both Lua and Luau, inspired by Java's Enums and the way @herb-chan implemented enums in js.
+A simple Enum class implementation for both Lua and Luau, inspired by Java's Enums and the way [@herb-chan](https://github.com/herb-chan) implemented enums in js.
 
 Both implementations are almost the same, with the only differences being that the Luau implementation is fully typed and replaces some Lua functionality with Luau specific versions (for example the Luau version uses table.freeze instead of setting the __newindex of the enum to ensure immutability).
 
