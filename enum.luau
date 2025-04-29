@@ -7,7 +7,8 @@ export type EnumType = {
 	getByOrdinal: (EnumType, number) -> (string?),
 	next: (EnumType, number) -> (number?),
 	previous: (EnumType, number) -> (number?),
-	
+	_values: {string},
+
 	[string] : number
 }
 
@@ -17,6 +18,7 @@ enum.__index = enum
 local reservedNames = {
 	new = true, 
 	values = true,
+	_values = true,
 	compare = true, 
 	getByOrdinal = true, 
 	next = true,
@@ -28,6 +30,8 @@ function enum.new(values: {string}) : EnumType
 
 	local self = {}
 
+	self._values = {}
+
 	for i, v in ipairs(values) do
 		if typeof(v) ~= "string" then
 			error("Only strings are allowed for enums")
@@ -35,6 +39,7 @@ function enum.new(values: {string}) : EnumType
 			error("\"" .. v .. "\" is a reserved keyword and isn't allowed for enums")
 		end
 
+		table.insert(self._values, v)
 		self[v] = i
 	end
 
@@ -44,13 +49,7 @@ function enum.new(values: {string}) : EnumType
 end
 
 function enum.values(self: EnumType) : {string}
-	local vals = {}
-
-	for i, _ in pairs(self) do
-		if typeof(i) == "string" then
-			table.insert(vals, i)
-		end
-	end
+	local vals = { table.unpack(self._values) }
 
 	local mt = {
 		__tostring = function(self)
@@ -75,13 +74,9 @@ end
 
 function enum.getByOrdinal(self: EnumType, ordinal: number) : string?
 	assert(typeof(ordinal) == "number", "You need to provide the ordinal to get the enum value from")
+    assert(ordinal <= #self._values, "Trying to get enum value by ordinal " .. ordinal .. ", while the max ordinal is " .. #self._values)
 
-	for i, v in pairs(self) do
-		if typeof(i) == "string" and v == ordinal then
-			return i
-		end
-	end
-	return nil
+    return self._values[ordinal]
 end
 
 function enum.next(self: EnumType, current: number) : number?
