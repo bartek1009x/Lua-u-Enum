@@ -6,6 +6,13 @@ Both implementations are almost the same, with the only differences being that t
 > [!NOTE]
 > The Lua version should work with all 5.1+ Lua versions
 
+# LuaRocks
+You can install SimpleEnum with LuaRocks:
+
+```
+luarocks install simpleenum
+```
+
 # Example usage
 Using this module is the same for both Lua and Luau versions.
 
