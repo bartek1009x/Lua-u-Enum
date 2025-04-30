@@ -12,7 +12,7 @@ export type EnumType = {
 	previous: (EnumType, number) -> (string?),
 	nextOrdinal: (EnumType, number) -> (number?),
 	previousOrdinal: (EnumType, number) -> (number?),
-	
+
 	[string] : number
 }
 
@@ -31,6 +31,8 @@ local reservedNames = {
 	previousOrdinal = true
 } :: {[string] : boolean}
 
+-- using do to make a new scope in which _values will be kept as a "private" table
+-- that the users won't be able to access or overwrite
 do
 	local _values = {}
 
