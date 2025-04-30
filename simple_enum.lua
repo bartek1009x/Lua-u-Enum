@@ -23,7 +23,7 @@ do
     local _values = {}
 
     function simpleenum.new(values)
-        assert(values and #values > 0, "Provide the string enum values")
+        assert(type(values) == "table" and #values > 0, "Provide the string enum values")
     
         local self = {}
         

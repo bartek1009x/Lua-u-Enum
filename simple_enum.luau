@@ -37,7 +37,7 @@ do
 	local _values = {}
 
 	function simpleenum.new(values: {string}) : EnumType
-		assert(values and #values > 0, "Provide the string enum values")
+		assert(typeof(values) == "table" and #values > 0, "Provide the string enum values")
 	
 		local self = {} :: any
 		
