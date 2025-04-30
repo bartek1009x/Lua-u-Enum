@@ -11,6 +11,8 @@ local reservedNames = {
     previous = true
 }
 
+local unpack = table.unpack or unpack
+
 function enum.new(values)
 	assert(values and #values > 0, "Provide the string enum values")
 
@@ -42,7 +44,7 @@ function enum.new(values)
 end
 
 function enum.values(self)
-    local vals = { table.unpack(self._values) }
+    local vals = { unpack(self._values) }
     
     local mt = {
         __tostring = function(self)
