@@ -45,38 +45,24 @@ function enum.new(values)
     return self
 end
 
-function enum.values(self)
-    local vals = { unpack(self._values) }
-    
-    local mt = {
-        __tostring = function(self)
-            local printables = {}
-            for _, v in pairs(self) do
-                table.insert(printables, v)
-            end
-            return table.concat(printables, ", ")
-        end
-    }
-    
-    setmetatable(vals, mt)
-    
-    return vals
+function enum:values()
+    return { unpack(self._values) }
 end
 
-function enum.compare(self, val1, val2)
+function enum:compare(val1, val2)
 	assert(type(val1) == "number" and type(val2) == "number", "You need to provide two enum values to compare")
 
     return val1 - val2
 end
 
-function enum.getByOrdinal(self, ordinal)
+function enum:getByOrdinal(ordinal)
 	assert(type(ordinal) == "number", "You need to provide the ordinal to get the enum value from")
-    assert(ordinal <= #self._values, "Trying to get enum value by ordinal " .. ordinal .. ", while the max ordinal is " .. #self._values)
+    assert(ordinal > 0 and ordinal <= #self._values, "Trying to get enum value by ordinal " .. ordinal .. ", while the ordinal can be in range 1 to " .. #self._values)
 
     return self._values[ordinal]
 end
 
-function enum.next(self, current)
+function enum:next(current)
 	assert(type(current) == "number", "You need to provide the enum value to get the next one from")
 
     if self._values[current + 1] then
@@ -85,7 +71,7 @@ function enum.next(self, current)
     return nil
 end
 
-function enum.previous(self, current)
+function enum:previous(current)
 	assert(type(current) == "number", "You need to provide the enum value to get the previous one from")
     
     if self._values[current - 1] then
@@ -94,7 +80,7 @@ function enum.previous(self, current)
     return nil
 end
 
-function enum.nextOrdinal(self, current)
+function enum:nextOrdinal(current)
 	assert(type(current) == "number", "You need to provide the enum value to get the next ordinal from")
 
     if self._values[current + 1] then
@@ -103,7 +89,7 @@ function enum.nextOrdinal(self, current)
     return nil
 end
 
-function enum.previousOrdinal(self, current)
+function enum:previousOrdinal(current)
 	assert(type(current) == "number", "You need to provide the enum value to get the previous ordinal from")
     
     if self._values[current - 1] then
