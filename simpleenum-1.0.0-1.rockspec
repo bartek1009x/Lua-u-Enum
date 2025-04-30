@@ -1,7 +1,8 @@
 package = "simpleenum"
 version = "1.0.0-1"
 source = {
-    url = "https://github.com/bartek1009x/SimpleEnum.git"
+    url = "https://raw.githubusercontent.com/bartek1009x/SimpleEnum/main/simple_enum.lua",
+    file = "simple_enum.lua"
 }
 description = {
    summary = "A simple enum implementation in Lua.",
