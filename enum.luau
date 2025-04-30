@@ -19,12 +19,12 @@ local enum = {}
 enum.__index = enum
 
 local reservedNames = {
-	new = true, 
+	new = true,
 	values = true,
 	ordinals = true,
 	_values = true,
-	compare = true, 
-	getByOrdinal = true, 
+	compare = true,
+	getByOrdinal = true,
 	next = true,
 	previous = true,
 	nextOrdinal = true,
