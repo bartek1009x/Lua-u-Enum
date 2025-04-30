@@ -26,7 +26,8 @@ currentDayState = DayState:next(currentDayState)
 print(currentDayState) -- 2
 
 print(DayState.NIGHT == currentDayState) -- false
-print(DayState:values()) -- DUSK, DAWN, NIGHT, DAY
+print(DayState:values()) -- a table containing enum values as strings (DAY, DUSK, NIGHT, DAWN)
+print(DayState:ordinals()) -- a table containing enum ordinals as numbers (1, 2, 3, 4)
 print(DayState:compare(DayState.DAY, DayState.NIGHT)) -- -2, works the same as Java's compareTo
 print(DayState:next(DayState.DUSK)) -- NIGHT
 print(DayState:previous(DayState.DUSK)) -- DAY

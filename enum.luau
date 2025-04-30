@@ -3,6 +3,7 @@
 export type EnumType = {
 	new: ({string}) -> (EnumType),
 	values: (EnumType) -> ({string}),
+	ordinals: (EnumType) -> ({number}),
 	compare: (EnumType, number, number) -> (number),
 	getByOrdinal: (EnumType, number) -> (string?),
 	next: (EnumType, number) -> (string?),
@@ -20,6 +21,7 @@ enum.__index = enum
 local reservedNames = {
 	new = true, 
 	values = true,
+	ordinals = true,
 	_values = true,
 	compare = true, 
 	getByOrdinal = true, 
@@ -54,6 +56,16 @@ end
 
 function enum:values() : {string}
 	return { table.unpack(self._values) }
+end
+
+function enum:ordinals() : {number}
+    local ordinals = {}
+
+    for i = 1, #self._values do
+        ordinals[i] = i
+    end
+
+    return ordinals
 end
 
 function enum:compare(val1: number, val2: number) : number

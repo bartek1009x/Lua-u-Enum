@@ -4,6 +4,7 @@ enum.__index = enum
 local reservedNames = {
     new = true,
     values = true,
+    ordinals = true,
     _values = true,
     compare = true,
     getByOrdinal = true,
@@ -47,6 +48,16 @@ end
 
 function enum:values()
     return { unpack(self._values) }
+end
+
+function enum:ordinals()
+    local ordinals = {}
+
+    for i = 1, #self._values do
+        ordinals[i] = i
+    end
+
+    return ordinals
 end
 
 function enum:compare(val1, val2)
