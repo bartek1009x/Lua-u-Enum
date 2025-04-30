@@ -34,7 +34,7 @@ local reservedNames = {
 function enum.new(values: {string}) : EnumType
 	assert(values and #values > 0, "Provide the string enum values")
 
-	local self = {}
+	local self = {} :: any
 
 	self._values = {}
 
@@ -43,7 +43,9 @@ function enum.new(values: {string}) : EnumType
 			error("Only strings are allowed for enums")
 		elseif reservedNames[v] then
 			error("\"" .. v .. "\" is a reserved keyword and isn't allowed for enums")
-		end
+		elseif self[v] then
+            error("Enum value duplicates are not allowed")
+        end
 
 		table.insert(self._values, v)
 		self[v] = i

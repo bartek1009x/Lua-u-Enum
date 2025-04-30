@@ -28,6 +28,8 @@ function enum.new(values)
             error("Only strings are allowed for enums")
         elseif reservedNames[v] then
             error("\"" .. v .. "\" is a reserved keyword and isn't allowed for enums")
+        elseif self[v] then
+            error("Enum value duplicates are not allowed")
         end
         
         table.insert(self._values, v)
