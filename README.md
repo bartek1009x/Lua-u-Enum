@@ -28,7 +28,9 @@ print(currentDayState) -- 2
 print(DayState.NIGHT == currentDayState) -- false
 print(DayState:values()) -- DUSK, DAWN, NIGHT, DAY
 print(DayState:compare(DayState.DAY, DayState.NIGHT)) -- -2, works the same as Java's compareTo
-print(DayState:next(DayState.DUSK)) -- 3
-print(DayState:previous(DayState.DUSK)) -- 1
+print(DayState:next(DayState.DUSK)) -- NIGHT
+print(DayState:previous(DayState.DUSK)) -- DAY
+print(DayState:nextOrdinal(DayState.DUSK)) -- 3
+print(DayState:previousOrdinal(DayState.DUSK)) -- 1
 print(DayState:getByOrdinal(4)) -- DAWN
 ```

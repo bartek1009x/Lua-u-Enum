@@ -5,8 +5,10 @@ export type EnumType = {
 	values: (EnumType) -> ({string}),
 	compare: (EnumType, number, number) -> (number),
 	getByOrdinal: (EnumType, number) -> (string?),
-	next: (EnumType, number) -> (number?),
-	previous: (EnumType, number) -> (number?),
+	next: (EnumType, number) -> (string?),
+	previous: (EnumType, number) -> (string?),
+	nextOrdinal: (EnumType, number) -> (number?),
+	previousOrdinal: (EnumType, number) -> (number?),
 	_values: {string},
 
 	[string] : number
@@ -22,7 +24,9 @@ local reservedNames = {
 	compare = true, 
 	getByOrdinal = true, 
 	next = true,
-	previous = true
+	previous = true,
+	nextOrdinal = true,
+	previousOrdinal = true
 } :: {[string] : boolean}
 
 function enum.new(values: {string}) : EnumType
@@ -79,8 +83,26 @@ function enum.getByOrdinal(self: EnumType, ordinal: number) : string?
     return self._values[ordinal]
 end
 
-function enum.next(self: EnumType, current: number) : number?
+function enum.next(self: EnumType, current: number) : string?
 	assert(typeof(current) == "number", "You need to provide the enum value to get the next one from")
+
+    if self._values[current + 1] then
+        return self._values[current + 1]
+    end
+    return nil
+end
+
+function enum.previous(self: EnumType, current: number) : string?
+	assert(typeof(current) == "number", "You need to provide the enum value to get the previous one from")
+
+	if self._values[current - 1] then
+        return self._values[current - 1]
+    end
+    return nil
+end
+
+function enum.nextOrdinal(self: EnumType, current: number) : number?
+	assert(typeof(current) == "number", "You need to provide the enum value to get the next ordinal from")
 
     if self._values[current + 1] then
         return current + 1
@@ -88,8 +110,8 @@ function enum.next(self: EnumType, current: number) : number?
     return nil
 end
 
-function enum.previous(self: EnumType, current: number) : number?
-	assert(typeof(current) == "number", "You need to provide the enum value to get the previous one from")
+function enum.previousOrdinal(self: EnumType, current: number) : number?
+	assert(typeof(current) == "number", "You need to provide the enum value to get the previous ordinal from")
 
 	if self._values[current - 1] then
         return current - 1

@@ -8,7 +8,9 @@ local reservedNames = {
     compare = true,
     getByOrdinal = true,
     next = true,
-    previous = true
+    previous = true,
+    nextOrdinal = true,
+    previousOrdinal = true
 }
 
 local unpack = table.unpack or unpack
@@ -78,13 +80,31 @@ function enum.next(self, current)
 	assert(type(current) == "number", "You need to provide the enum value to get the next one from")
 
     if self._values[current + 1] then
-        return current + 1
+        return self._values[current + 1]
     end
     return nil
 end
 
 function enum.previous(self, current)
 	assert(type(current) == "number", "You need to provide the enum value to get the previous one from")
+    
+    if self._values[current - 1] then
+        return self._values[current - 1]
+    end
+    return nil
+end
+
+function enum.nextOrdinal(self, current)
+	assert(type(current) == "number", "You need to provide the enum value to get the next ordinal from")
+
+    if self._values[current + 1] then
+        return current + 1
+    end
+    return nil
+end
+
+function enum.previousOrdinal(self, current)
+	assert(type(current) == "number", "You need to provide the enum value to get the previous ordinal from")
     
     if self._values[current - 1] then
         return current - 1
