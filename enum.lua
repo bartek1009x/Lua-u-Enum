@@ -77,10 +77,8 @@ end
 function enum.next(self, current)
 	assert(type(current) == "number", "You need to provide the enum value to get the next one from")
 
-    for i, v in pairs(self) do
-        if type(i) == "string" and v == current + 1 then
-            return v
-        end
+    if self._values[current + 1] then
+        return current + 1
     end
     return nil
 end
@@ -88,10 +86,8 @@ end
 function enum.previous(self, current)
 	assert(type(current) == "number", "You need to provide the enum value to get the previous one from")
     
-    for i, v in pairs(self) do
-        if type(i) == "string" and v == current - 1 then
-            return v
-        end
+    if self._values[current - 1] then
+        return current - 1
     end
     return nil
 end

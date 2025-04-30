@@ -82,23 +82,19 @@ end
 function enum.next(self: EnumType, current: number) : number?
 	assert(typeof(current) == "number", "You need to provide the enum value to get the next one from")
 
-	for i, v in pairs(self) do
-		if typeof(i) == "string" and v == current + 1 then
-			return v :: number
-		end
-	end
-	return nil
+    if self._values[current + 1] then
+        return current + 1
+    end
+    return nil
 end
 
 function enum.previous(self: EnumType, current: number) : number?
 	assert(typeof(current) == "number", "You need to provide the enum value to get the previous one from")
 
-	for i, v in pairs(self) do
-		if typeof(i) == "string" and v == current - 1 then
-			return v :: number
-		end
-	end
-	return nil
+	if self._values[current - 1] then
+        return current - 1
+    end
+    return nil
 end
 
 return table.freeze(enum) :: typeof(enum)
