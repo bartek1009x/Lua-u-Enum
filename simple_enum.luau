@@ -3,15 +3,15 @@
 --!strict
 
 export type EnumType = {
-	new: ({string}) -> (EnumType),
-	values: (EnumType) -> ({string}),
-	ordinals: (EnumType) -> ({number}),
-	compare: (EnumType, number, number) -> (number),
-	getByOrdinal: (EnumType, number) -> (string?),
-	next: (EnumType, number) -> (string?),
-	previous: (EnumType, number) -> (string?),
-	nextOrdinal: (EnumType, number) -> (number?),
-	previousOrdinal: (EnumType, number) -> (number?),
+	new: (values: {string}) -> (EnumType),
+	values: (self: EnumType) -> ({string}),
+	ordinals: (self: EnumType) -> ({number}),
+	compare: (self: EnumType, enumValue1: number, enumValue2: number) -> (number),
+	getByOrdinal: (self: EnumType, ordinal: number) -> (string?),
+	next: (self: EnumType, enumValue: number) -> (string?),
+	previous: (self: EnumType, enumValue: number) -> (string?),
+	nextOrdinal: (self: EnumType, enumValue: number) -> (number?),
+	previousOrdinal: (self: EnumType, enumValue: number) -> (number?),
 
 	[string] : number
 }
@@ -34,7 +34,7 @@ local reservedNames = {
 -- using do to make a new scope in which _values will be kept as a "private" table
 -- that the users won't be able to access or overwrite
 do
-	local _values = {}
+	local _values = {} :: {string}
 
 	function simpleenum.new(values: {string}) : EnumType
 		assert(typeof(values) == "table" and #values > 0, "Provide the string enum values")
